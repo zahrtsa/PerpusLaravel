@@ -7,35 +7,23 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        
+    public function adduser(){
+        if(Auth()->user()->role == 'admin'){
+            return view('user.add');
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function prosescreate(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        if(Auth()->user()->role == 'admin'){
+            $this->validated($request, [
+                'name' => 'required|min: 4',
+                'role' => 'required',
+                'no_telp' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+            ]);
+        }
     }
 
     /**

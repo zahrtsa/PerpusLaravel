@@ -13,14 +13,6 @@ use Illuminate\Support\Facades\File;
 
 class LoginController extends Controller
 {
-    public function index(){
-        if(!Session::get('login')){
-            return redirect('login')->with('alert','You need to login first');
-        } else{
-            return redirect('dashboard');
-        }
-    }
-
     public function Authentication(Request $request)
     {
         $email    = $request->email;

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -25,17 +29,22 @@ class UserController extends Controller
     public function prosescreate(Request $request)
     {
         if(Auth()->user()->role == 'admin'){
-            $validated = Validator::make($request->all(), [
+            $this->validate($request, [
                 'name' => 'required|min: 4',
                 'role' => 'required',
                 'no_telp' => 'required|max:12',
                 'email' => 'required|max:100',
                 'password' => 'required',
             ]);
-
-            $validated = $request->safe()->all;
-
-            return view('user.index')->with('success','New user have been created!');
+            $data = new UserModel();
+            $data->name = $request->name;
+            $data->role = $request->role;
+            $data->email = $request->email;
+            $data->password = bcrypt($request->password);
+            $data->save();
+            return redirect(route('indexuser'))->with('success','New user have been created!');
+        } else{
+            return back()->with('alert', 'Add New User Failed');
         }
     }
 
@@ -62,7 +71,7 @@ class UserController extends Controller
 
             $validated = $request->update()->all;
 
-            return view('user.index')->with('success','User has been updsted!');
+            return view('user.index')->with('success','User has been updated!');
            
         }
     }

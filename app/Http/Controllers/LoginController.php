@@ -31,7 +31,7 @@ class LoginController extends Controller
                     "password"=>$request->password,
                 ];
                 Auth::Attempt($credential);
-                return redirect('Dashboard');
+                return redirect(route('Dashboard'));
             }
             else{
                 return back()->with('alert', 'Login Failed');

@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    public function indexuser(){
+        if(Auth()->user()->role == 'admin'){
+            $data = User::all();
+            return view('user.index', ['data'=>$data]);
+
+        }
+    }
+    
     public function adduser(){
         if(Auth()->user()->role == 'admin'){
             return view('user.add');
@@ -16,58 +25,54 @@ class UserController extends Controller
     public function prosescreate(Request $request)
     {
         if(Auth()->user()->role == 'admin'){
-            $this->validated($request, [
+            $validated = Validator::make($request->all(), [
                 'name' => 'required|min: 4',
                 'role' => 'required',
-                'no_telp' => 'required',
-                'email' => 'required',
+                'no_telp' => 'required|max:12',
+                'email' => 'required|max:100',
                 'password' => 'required',
             ]);
+
+            $validated = $request->safe()->all;
+
+            return view('user.index')->with('success','New user have been created!');
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
+    public function edituser(Request $request,User $user){
+        if(Auth()->user()->role == 'admin'){
+            $id = $request->id;
+            $data = User::find($id);
+            return view("user.edit", ['data'=>$data]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
+    public function prosesupdate(Request $request, User $user)
     {
-        //
+        if(Auth()->user()->role == 'admin'){
+            $id = $request->id;
+            $data = User::find($id);
+            $validated = Validator::make($request->all(), [
+                'name' => 'required|min: 4',
+                'role' => 'required',
+                'no_telp' => 'required|max:12',
+                'email' => 'required|max:100',
+                'password' => 'required',
+            ]);
+
+            $validated = $request->update()->all;
+
+            return view('user.index')->with('success','User has been updsted!');
+           
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
+    public function deleteuser(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
+        if(Auth()->user()->role == 'admin'){
+           $data = User::find($request->id);
+           $data->delete();
+           return view('user.index')->with('success','User has been delete, congrast');
+        }
     }
 }

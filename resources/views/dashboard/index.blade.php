@@ -9,6 +9,5 @@
 <body>
    INI LAMAN LAIN
     <a href="{{route('logout')}}">KELUAR</a>
-  
 </body>
 </html>

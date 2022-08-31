@@ -9,5 +9,28 @@
 <body>
     INI LAMAN Admin
     <a href="{{route('logout')}}">KELUAR</a>
+    <button>
+    <a href="{{ route('adduser') }}">Tambahkan User</a>
+</button>
+<table border="3">
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Nomor Telepon</th>
+        <th>Email</th>
+        <th colspan="2">Tindakan</th>
+    </tr>
+    @foreach($data as $key => $user)
+        <tr>
+            <td>{{$key+1}}</td>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->role }}</td>
+            <td>{{ $user->no_telp }}</td>
+            <td>{{ $user->email }}</td>
+            <td><a href="{{ route('edituser', $user->id)}}">Edit</a></td>
+        </tr>
+    @endforeach
+</table>
 </body>
 </html>

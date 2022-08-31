@@ -6,7 +6,7 @@
 <table border="3">
     <tr>
         <td>
-            <form action="/user/{{$user->id}}" method="POST">
+            <form action="{{ url('prosescreate') }}" method="POST">
                 @csrf
                 <input type="text" name="name" placeholder="Name" value="{{$user->name}}"><br>
                 <select name="Role">

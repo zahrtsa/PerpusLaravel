@@ -8,5 +8,6 @@
 </head>
 <body>
     <h1>NYOBA HALAMAN HOME, TANPA LOGIN</h1>
+    <a  href="{{route('login')}}">LOGIN</a>
 </body>
 </html>

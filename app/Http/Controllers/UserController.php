@@ -70,7 +70,7 @@ class UserController extends Controller
             $validated = Validator::make($request->all(), [
                 'name' => 'required|min: 4',
                 'role' => 'required',
-                'no_telp' => 'required|max:12',
+                'no_telp' => 'required|digits:13',
                 'email' => 'required|max:100',
                 'password' => 'required',
             ]);

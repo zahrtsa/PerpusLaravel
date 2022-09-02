@@ -25,14 +25,6 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'librarian',
-            'role' => 'librarian',
-            'no_telp' => '0898897667',
-            'email' => 'librarian@library.com',
-            'password' => Hash::make('12345678'),
-        ]);
-
-        User::create([
             'name' => 'guest',
             'role' => 'guest',
             'no_telp' => '0898897667',

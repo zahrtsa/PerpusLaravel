@@ -37,11 +37,11 @@ class UserController extends Controller
                 'password' => 'required',
             ]);
 
-            if($validated->fails()) {
-                return response($validated->errors(), 401);
-            }
+            //if($validated) {
+                //return response($validated->errors(), 401);
+            //}
             User::create($request->all());
-            return view('admin.index', ['data' => User::all()]);
+            return view('user.index', ['data' => User::all()]);
             //$data = new User();
             //$data->name = $request->name;
             //$data->role = $request->role;

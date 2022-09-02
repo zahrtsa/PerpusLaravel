@@ -12,8 +12,8 @@
                 <input type="text" name="name" placeholder="Name"><br>
                 <select name="Role">
                     <option value="" selected>Pilih Role</option>
-                    <option value="admin" @if($data->Role == "admin") selected @endif>Admin</option>
-                    <option value="guest" @if($data->Role == "guest") selected @endif>Guest</option>
+                    <option value="admin" (Role == "admin") >Admin</option>
+                    <option value="guest" (Role == "guest") >Guest</option>
                 </select><br>
                 <input type="text" name="no_telp" placeholder="Nomor Telepon"><br>
                 <input type="text" name="email" placeholder="Email"><br>

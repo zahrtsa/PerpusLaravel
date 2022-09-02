@@ -8,11 +8,12 @@
         <td>
             <form action="{{ route('prosescreate') }}" method="POST">
                 @csrf
+                @method('POST')
                 <input type="text" name="name" placeholder="Name"><br>
                 <select name="Role">
-                    <option value="">Pilih Role</option>
-                    <option value="A" name="admin">Admin</option>
-                    <option value="G" name="guest">Guest</option>
+                    <option value="" selected>Pilih Role</option>
+                    <option value="admin" @if($data->Role == "admin") selected @endif>Admin</option>
+                    <option value="guest" @if($data->Role == "guest") selected @endif>Guest</option>
                 </select><br>
                 <input type="text" name="no_telp" placeholder="Nomor Telepon"><br>
                 <input type="text" name="email" placeholder="Email"><br>

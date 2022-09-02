@@ -29,20 +29,26 @@ class UserController extends Controller
     public function prosescreate(Request $request)
     {
         if(Auth()->user()->role == 'admin'){
-            $this->validate($request, [
+            $validated = Validator::make($request->all(), [
                 'name' => 'required|min: 4',
                 'role' => 'required',
                 'no_telp' => 'required|max:12',
                 'email' => 'required|max:100',
                 'password' => 'required',
             ]);
-            $data = new UserModel();
-            $data->name = $request->name;
-            $data->role = $request->role;
-            $data->email = $request->email;
-            $data->password = bcrypt($request->password);
-            $data->save();
-            return redirect(route('indexuser'))->with('success','New user have been created!');
+
+            if($validated->fails()) {
+                return response($validated->errors(), 401);
+            }
+            User::create($request->all());
+            return view('admin.index', ['data' => User::all()]);
+            //$data = new User();
+            //$data->name = $request->name;
+            //$data->role = $request->role;
+            //$data->email = $request->email;
+            //$data->password = bcrypt($request->password);
+            //$data->save();
+            //return redirect(route('indexuser'))->with('success','New user have been created!');
         } else{
             return back()->with('alert', 'Add New User Failed');
         }

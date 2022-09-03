@@ -28,7 +28,14 @@
             <td>{{ $user->role }}</td>
             <td>{{ $user->no_telp }}</td>
             <td>{{ $user->email }}</td>
-            <td><a href="{{ route('edituser', $user->id)}}">Edit</a></td>
+            <td>
+                <a href="{{ route('edituser', $user->id)}}">Edit</a>
+                <form action="{{ route('deleteuser',$user->id) }}" method="Post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
     @endforeach
 </table>

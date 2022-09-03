@@ -31,8 +31,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/adduser',[UserController::class,'adduser'])->name('adduser')->middleware('auth');
         Route::post('/prosescreate',[UserController::class,'prosescreate'])->name('prosescreate')->middleware('auth');
         Route::get('/edituser/{id}',[UserController::class,'edituser'])->name('edituser')->middleware('auth');
-        Route::post('/{id}/prosesupdate',[UserController::class,'prosesupdate'])->name('prosesupdate')->middleware('auth');
-        Route::get('/destroy',[UserController::class,'deleteuser'])->name('deleteuser')->name('deleteuser')->middleware('auth');
+        Route::post('/prosesupdate',[UserController::class,'prosesupdate'])->name('prosesupdate')->middleware('auth');
+        Route::get('/deleteuser',[UserController::class,'deleteuser'])->name('deleteuser')->middleware('auth');
 });
 
 

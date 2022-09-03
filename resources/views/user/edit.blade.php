@@ -6,9 +6,9 @@
 <table border="3">
     <tr>
         <td>
-            <form action="{{url('edituser')}}" method="POST">
-                @method('put')
+            <form action="{{ route('prosesupdate') }}" method="POST">
                 @csrf
+                {{ csrf_field() }}
                 <input type="text" name="id" value="{{ $data->id }}" hidden="true"/>
                 <input type="text" name="name" placeholder="Name" value="{{$data->name}}"><br>
                 <select name="Role">

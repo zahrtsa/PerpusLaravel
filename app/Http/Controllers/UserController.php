@@ -29,17 +29,23 @@ class UserController extends Controller
     public function prosescreate(Request $request)
     {
         if(Auth()->user()->role == 'admin'){
-            $validated = Validator::make($request->all(), [
+            $request->validate([
                 'name' => 'required|min: 4',
                 'role' => 'required',
                 'no_telp' => 'required|max:12',
                 'email' => 'required|max:100',
                 'password' => 'required',
             ]);
-
+            //$password =  bcrypt($request->password);
             //if($validated) {
                 //return response($validated->errors(), 401);
             //}
+            //User::create([
+                //'name' => $request->name,
+                //'role' => $request->role,
+                //'email' => $request->email,
+                //'password' => bcrypt($request->password),
+            //]);
             User::create($request->all());
             return view('user.index', ['data' => User::all()]);
             //$data = new User();
@@ -67,17 +73,16 @@ class UserController extends Controller
         if(Auth()->user()->role == 'admin'){
             $id = $request->id;
             $data = User::find($id);
-            $validated = Validator::make($request->all(), [
+            $request->validate([
                 'name' => 'required|min: 4',
                 'role' => 'required',
-                'no_telp' => 'required|digits:13',
+                'no_telp' => 'required|max:12',
                 'email' => 'required|max:100',
                 'password' => 'required',
             ]);
-
-            $validated = $request->update()->all;
-
-            return view('user.index')->with('success','User has been updated!');
+            
+            $user->update($request->all());
+            return redirect('user.index', ['data' => $data])->with('success','User has been updated!');
            
         }
     }

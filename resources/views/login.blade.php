@@ -16,13 +16,15 @@
 		</div>
 		<div class="login-content">
         @if(\Session::has('alert'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <div>{{Session::get('alert')}}</div>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
             @if(\Session::has('alert-success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <div>{{Session::get('alert-success')}}</div>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 			<form method="POST" action="{{ url('/Authentication')}}">

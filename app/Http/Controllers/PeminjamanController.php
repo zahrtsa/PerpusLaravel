@@ -12,9 +12,12 @@ class PeminjamanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        if(Auth()->user()->role == 'admin'){
+            $data = Peminjaman::all();
+            return view('user.index', ['data'=>$data]);
+
+        }
     }
 
     /**
@@ -24,7 +27,7 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
-        //
+      
     }
 
     /**
@@ -35,7 +38,17 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Auth()->user()->role == 'admin'){
+            $this->validate($request, [
+                'judul' => 'required|min:3',
+                'penulis' => 'required|min:3',
+                'status' => 'required|min:1'
+            ]);
+
+            Peminjaman::create($request->all());
+            
+
+        }
     }
 
     /**

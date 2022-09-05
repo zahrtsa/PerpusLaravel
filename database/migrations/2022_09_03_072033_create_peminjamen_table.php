@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('peminjamen', function (Blueprint $table) {
             $table->id();
+            $table->string('judul');
+            $table->string('penulis');
+            $table->integer('status');
             $table->date('tgl_pinjam');
             $table->date('tgl_kembali');
             $table->timestamps();
